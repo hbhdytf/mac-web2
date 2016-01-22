@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h1>添加媒资文件</h1>
+<div style="width: 550px;">
+    <form action="/addmeta" method="post" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">编号</label>
+            <div class="col-sm-10">
+                <input type="text" name="obj_id" class="form-control" value="{{ nextid }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">媒资名称</label>
+            <div class="col-sm-10">
+                <input type="text" name="obj_name" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="col-sm-2 control-label">类别ID</label>
+            <div class="col-sm-10">
+                <input type="text" name="obj_secl_id" class="form-control">
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="selectleve" class="col-sm-2 control-label" >安全级别</label>
+            <div class="col-sm-10">
+                <select class="form-control" name="obj_level">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+        <br/>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> </label>
+            <div class="col-sm-offset-5 col-sm-10">
+                <button type="submit" class="btn">提交</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script></script>
+</body>
+</html>

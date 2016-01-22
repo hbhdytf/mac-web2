@@ -1,0 +1,83 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <title></title>
+    <link rel="stylesheet" href="../../collected_static/entry.css"/>
+    <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        th,td{
+            text-align:center;
+            margin-top: auto;
+            margin-bottom: auto;
+            width: auto;
+            vertical-align: middle;
+        }
+        table.table-bordered
+        table.table
+        table.table-condensed
+        table.table-hover
+        table.table-striped
+
+        a:link {color: black  text-decoration:none;}    /* 未被访问的链接 */
+        a:visited {text-decoration:none;} /* 已被访问的链接 */
+        a:hover {text-decoration:underline;}   /* 鼠标指针移动到链接上 */
+        a:active {text-decoration:underline;}  /* 正在被点击的链接 */
+    </style>
+</head>
+<body>
+<div class="entry">
+<h1>媒资管理</h1>
+
+<a class="dropdown-toggle btn btn-mini btn-success col-sm-offset-0.5" data-toggle="dropdown" href="/metaadd?id={{ uname }}">
+<i class="icon-plus icon-white"></i>
+</a>
+    <table class="table table-striped table-condensed table-hover table-bordered" width="70%"  >
+        <thead>
+        <tr>
+            <th>媒资编号</th>
+            <th>媒资名称</th>
+            <th>所属范畴</th>
+            <th>安全级别</th>
+            <th>作者</th>
+            <th>路径</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+            <tbody>
+        {% for i,meta in metainfo.items %}
+            <tr>
+                <td>
+                    {{ meta.0 }}
+                </td>
+                <td>
+                    {{ meta.1 }}
+                </td>
+                <td>
+                    {{ meta.2 }}
+                </td>
+                <td>
+                    {{ meta.3 }}
+                </td>
+                <td>
+                    {{ meta.4 }}
+                </td>
+                <td>
+                    {{ meta.5 }}
+                </td>
+                <td>
+                    <a style="color: #ffffff" class="btn btn-danger" href="/deletemeta/mtid={{ mt_id }}/name={{ uname }}/id={{ meta.0 }}" onclick="return confirm('{% trans 'Delete object' %} {{meta.5}}?');">删除</a>
+                    <a style="color: #ffffff" class="btn btn-primary" href="/showmid?id={{ meta.0 }}">更新</a>
+                </td>
+            </tr>
+        {% endfor %}
+            <tbody>
+    </table>
+</div>
+<script type="text/javascript"> $('input[id=file]').change(function() { $('#filetmp').val($(this).val()); }); </script>
+</body>
+</html>

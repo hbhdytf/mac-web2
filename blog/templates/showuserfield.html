@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <title></title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        th,td{
+            text-align:center;
+            margin-top: auto;
+            margin-bottom: auto;
+            width: auto;
+        }
+        a:link {color: black  text-decoration:none;}    /* 未被访问的链接 */
+        a:visited {text-decoration:none;} /* 已被访问的链接 */
+        a:hover {text-decoration:underline;}   /* 鼠标指针移动到链接上 */
+        a:active {text-decoration:underline;}  /* 正在被点击的链接 */
+    </style>
+</head>
+<body>
+<h1>范畴控制</h1>
+<div>
+    <table class="table table-condensed table-hover table-bordered" width="70%"  >
+        <thead>
+        <tr>
+            <th>编号</th>
+            <th>登录名</th>
+            <th>范畴</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        {% for i,secfield in secfieldinfo.items %}
+            <tbody>
+            <tr>
+                <td>
+                    {{ secfield.0 }}
+                </td>
+                <td>
+                    {{ secfield.1 }}
+                </td>
+                <td>
+                    {% for field in secfield.2 %}
+                        |{{ field }}|
+                    {% endfor %}
+                </td>
+                <td>
+                    <a style="color: #ffffff" class="btn btn-success" href="/addsefield">添加</a>
+                    <a style="color: #ffffff" class="btn btn-danger" href="/delufrelation/id={{ secfield.0 }}">删除</a>
+                    <a style="color: #ffffff" class="btn btn-primary" href="/showrelation/id={{ secfield.0 }}">更新</a>
+                </td>
+            </tr>
+            <tbody>
+        {% endfor %}
+    </table>
+</div>
+
+
+</body>
+</html>

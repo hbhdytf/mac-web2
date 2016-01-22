@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+{%for name,j in det.items%}
+    <li>
+        <a href="#{{ name }}" data-toggle="collapse">
+            {{name}}
+            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+        </a>
+        {%for name1,j1 in j.items %}
+            <li>
+                <ul href="#{{ name1 }}" id="{{ name }}" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                    <li>
+                        <a id="{{ name1 }}" href="#{{ name1 }}" class="nav-header collapsed" data-toggle="collapse">
+                            <i class="glyphicon glyphicon-user"></i>{{name1}}
+                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                        <ul id="{{ name1 }}" class="nav nav-list collapse thirdmenu" style="height: 0px;">
+                            {%for d in j1 %}
+                                <li><a href="#section2">{{d}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        {% endfor %}
+    </li>
+{%endfor%}
+
+
+</body>
+</html>

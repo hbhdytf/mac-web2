@@ -1,0 +1,55 @@
+{% load l10n %}
+{% load i18n %}
+{% block content %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h1>添加媒资文件</h1>
+<form method="post" action="/metaadd" enctype="multipart/form-data" >
+    <input type="hidden" name="redirect" value="{{ redirect_url }}" />
+    <input type="hidden" name="max_file_size" value="{{ max_file_size }}" />
+    <input type="hidden" name="max_file_count" value="{{ max_file_count }}" />
+    <input type="hidden" name="expires" value="{{ expires }}" />
+    <input type="hidden" name="signature" value="{{ signature }}" />
+    <input type="file" name="file1" id="file" style="display:none;" /><br />
+
+    {% for field in mf %}
+        <div class="form-group col-sm-10">
+            {{ field.label }}:{{ field }}
+            {{ field.errors }}
+        </div>
+    {% endfor %}
+    <div class="control-group">
+        <label class="col-sm-2 control-label"> </label>
+        <div class="col-sm-offset-1 col-sm-6">
+            <button type="submit" class="btn btn-primary">提交</button>
+            <a href="/user" type="submit" class="btn btn-success">取消</a>
+        </div>
+    </div>
+{##}
+{#    <div class="control-group col-sm-10">#}
+{#        <label class="control-label" for="foldername">{% trans "File" %}</label>#}
+{#        <div class="controls">#}
+{#            <div class="input-append">#}
+{#            <input id="filetmp" name="filetmp" class="input-xlarge" type="text" placeholder="Select a file">#}
+{#                <a class="btn" onclick="$('input[id=file]').click();">Browse</a>#}
+{#            <a class="btn" onclick="$('input[id=file]').click();">{% trans 'Browse' %}</a>#}
+{#            </div>#}
+{#            <span class="help-block">#}
+{#                {% trans "Please select a file to upload" %}#}
+{#            </span>#}
+{#        </div>#}
+{#    </div>#}
+</form>
+<script type="text/javascript"> $('input[id=file]').change(function() { $('#filetmp').val($(this).val()); }); </script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript"> $('input[id=file]').change(function() { $('#filetmp').val($(this).val()); }); </script>
+</body>
+    {% endblock %}
+</html>

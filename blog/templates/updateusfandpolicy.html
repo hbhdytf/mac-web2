@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ info.0 }}</title>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h1>{{ info.0 }}</h1>
+<div style="width: 550px;">
+{% if '决策' in info.0 %}
+    <form action="/updatepolicy" method="post" class="form-horizontal" role="form">
+{% else %}
+    <form action="/updateufrelation" method="post" class="form-horizontal" role="form">
+{% endif %}
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">{{ info.1 }}</label>
+            <div class="col-sm-10">
+                <input type="text" name="field_id" value="{{ ufrealtion.0 }}" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">{{ info.2 }}</label>
+            <div class="col-sm-10">
+                <input type="text" name="name" value="{{ ufrealtion.1 }}" class="form-control">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="col-sm-2 control-label" >{{ info.3 }}</label>
+            <div class="col-sm-10">
+                {% for k,v in uu %}
+                    {% if v in ufrealtion.2 %}
+                        <input type="checkbox" name="field_names" value="{{ k }}" checked="checked"/>{{ v }}<br />
+                    {% else %}
+                        <input type="checkbox" name="field_names" value="{{ k }}"/>{{ v }}<br />
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label"> </label>
+            <div class="col-sm-offset-5 col-sm-10">
+                <button type="submit" class="btn btn-danger active">提交</button>
+                {% if '决策' in info.0 %}
+                    <a href="/policy" type="submit" class="btn btn-success active">取消</a>
+                {% else %}
+                    <a href="/user_field" type="submit" class="btn btn-success active">取消</a>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ head }}</title>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h1>{{ head }}</h1>
+<form method="post" enctype="multipart/form-data">
+<tr><th><label for="id_csparent">所属分类:</label></th><td>
+<select id="id_csparent" name="csparent">
+{% for k,v in uu3 %}
+<option value="{{ k }}">{{ v }}</option>	
+{% endfor %}
+</select></td></tr>
+<tr><th><label for="id_secclassname">分类名字:</label></th><td><input id="id_secclassname" maxlength="30" name="secclassname" type="text" /></td></tr>
+    <div class="form-group">
+        <label class="col-sm-2 control-label"> </label>
+        <div class="col-sm-offset-1 col-sm-6">
+            <button type="submit" class="btn btn-primary">提交</button>
+{#        判断是添加范畴    添加媒资分类   范畴用户关系 添加决策#}
+            {% if '媒资分类' in head %}
+                <a href="/class" type="submit" class="btn btn-success">取消</a>
+            {% endif %}
+            {% if '添加范畴' in head %}
+                <a href="/field" type="submit" class="btn btn-success">取消</a>
+            {% endif %}
+            {% if '范畴用户' in head %}
+                <a href="/user_field" type="submit" class="btn btn-success">取消</a>
+            {% endif %}
+            {% if '添加决策' in head %}
+                <a href="/policy" type="submit" class="btn btn-success">取消</a>
+            {% endif %}
+        </div>
+    </div>
+</form>
+</body>
+</html>

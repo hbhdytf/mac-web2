@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <title></title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../collected_static/entry.css"/>  
+    <style>
+        th,td{
+            margin-top: auto;
+            margin-bottom: auto;
+            width: auto;
+        }
+        a:link {color: black  text-decoration:none;}    /* 未被访问的链接 */
+        a:visited {text-decoration:none;} /* 已被访问的链接 */
+        a:hover {text-decoration:underline;}   /* 鼠标指针移动到链接上 */
+        a:active {text-decoration:underline;}  /* 正在被点击的链接 */
+    </style>
+</head>
+<body>
+<div class="entry">
+<h1>用户管理</h1>
+  <!--  <table class="table table-condensed table-hover table-bordered" width="70%"  >-->
+	<table width="100%">
+        <thead>
+        <tr>
+            <th>用户编号</th>
+            <th>用户名</th>
+            <th>安全级别</th>
+            <th>手机</th>
+            <th>邮箱</th>
+            <th>时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+            <tbody>
+        {% for i,user in userinfo.items %}
+            <tr>
+                <td>
+                    {{ user.0 }}
+                </td>
+                <td>
+                    {{ user.1 }}
+                </td>
+                <td>
+                    {{ user.2 }}
+                </td>
+                <td>
+                    {{ user.3 }}
+                </td>
+                <td>
+                    {{ user.4 }}
+                </td>
+                <td>
+                    {{ user.5 }}
+                </td>
+                <td>
+                    <a style="color: #ffffff" class="btn btn-success" href="/adduser.html">添加</a>
+                    <a style="color: #ffffff" class="btn btn-danger" href="/deleteuser?id={{ user.0 }}">删除</a>
+                    <a style="color: #ffffff" class="btn btn-primary" href="/showuid?id={{ user.0 }}">更新</a>   </td>
+            </tr>
+        {% endfor %}
+            <tbody>
+    </table>
+</div>
+</body>
+</html>

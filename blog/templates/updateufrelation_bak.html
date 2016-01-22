@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>更新范畴控制信息</title>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h1>更新范畴控制信息</h1>
+<div style="width: 550px;">
+    <form action="/updateufrelation" method="post" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">编号</label>
+            <div class="col-sm-10">
+                <input type="text" name="field_id" value="{{ ufrealtion.0 }}" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">用户名</label>
+            <div class="col-sm-10">
+                <input type="text" name="user_name" value="{{ ufrealtion.1 }}" class="form-control">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="col-sm-2 control-label" >所属范畴</label>
+            <div class="col-sm-10">
+                {% for k,v in uu %}
+                    {% if v in ufrealtion.2 %}
+                        <input type="checkbox" name="field_names" value="{{ k }}" checked="checked"/>{{ v }}<br />
+                    {% else %}
+                        <input type="checkbox" name="field_names" value="{{ k }}"/>{{ v }}<br />
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label"> </label>
+            <div class="col-sm-offset-5 col-sm-10">
+                <button type="submit" class="btn btn-danger active">提交</button>
+                <a href="/user_field" type="submit" class="btn btn-success active">取消</a>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

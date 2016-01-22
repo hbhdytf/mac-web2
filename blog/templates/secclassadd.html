@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>分类管理</title>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h1>添加分类</h1>
+<form method="post" enctype="multipart/form-data">
+    {% for clas in cf %}
+        <div class="form-group col-sm-10">
+{#        <label class="col-sm-2 control-label"> </label>#}
+            {{ clas.label }}:{{ clas }}
+        </div>
+    {% endfor %}
+    <div class="form-group">
+        <label class="col-sm-2 control-label"> </label>
+        <div class="col-sm-offset-1 col-sm-6">
+            <button type="submit" class="btn btn-primary">提交</button>
+            <a href="/showclasses" type="submit" class="btn btn-success">取消</a>
+        </div>
+    </div>
+</form>
+</body>
+</html>

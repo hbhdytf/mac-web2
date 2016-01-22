@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>修改个人信息</title>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h1>更新用户信息</h1>
+<div style="width: 550px;">
+    <form action="/updateuser" method="post" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">登录名</label>
+            <div class="col-sm-10">
+                <input type="text" name="login_name" value="{{ data.login_name }}" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="col-sm-2 control-label">密码</label>
+            <div class="col-sm-10">
+                <input type="password" name="passwd" value="{{ data.password }}" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastname" class="col-sm-2 control-label">用户名</label>
+            <div class="col-sm-10">
+                <input type="text" name="name" value="{{ data.username }}" class="form-control">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="col-sm-2 control-label" >安全级别</label>
+            <div class="col-sm-10">
+                <select class="form-control" value="{{ data.seclevel }}" name="level">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label"> </label>
+            <div class="col-sm-offset-5 col-sm-10">
+                <button type="submit" class="btn btn-primary active">提交</button>
+                <a href="/user" type="submit" class="btn btn-primary active">取消</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script></script>
+</body>
+</html>
