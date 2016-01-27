@@ -3,10 +3,29 @@ from django.shortcuts import render_to_response
 from blog.models import Tuser, Tusersecfieldrelation
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator,InvalidPage,EmptyPage,PageNotAnInteger
 
+ONE_PAGE_OF_DATA = 10
 
 def showuser(req):
-    a = Tuser.objects.all()
+    try:
+        curPage = int(req.GET.get('curPage','1'))
+        allPage = int(req.GET.get('allPage','1'))
+        pageType = str(req.GET.get('pageType',''))
+    except ValueError:
+        curPage = 1
+        allPage = 1
+        pageType = ''
+    # charge pageup or pagedown
+    if pageType == 'pageDown':
+        curPage += 1
+    elif pageType == 'pageUp':
+        curPage -= 1
+    startPos = (curPage - 1) * ONE_PAGE_OF_DATA
+    endPos = startPos + ONE_PAGE_OF_DATA
+    posts = Tuser.objects.all()[startPos:endPos]
+    a = posts
+    #a = Tuser.objects.all()
     userinfo = {}
     for i in range(a.count()):
         tuid = a.values()[i]['tu_id']
@@ -18,7 +37,16 @@ def showuser(req):
         selevel = a.values()[i]['seclevel']
         name = [tuid, uname, selevel, mobile, email, gen_time]
         userinfo[tuid] = name
-    return render_to_response('show_user.html', {'userinfo': userinfo})
+    
+    if curPage == 1 and allPage == 1:
+        allPostCounts = Tuser.objects.count()
+        allPage = allPostCounts / ONE_PAGE_OF_DATA
+        remainPost = allPostCounts % ONE_PAGE_OF_DATA
+        if remainPost > 0:
+            allPage += 1
+
+    #return render_to_response('show_user.html', {'userinfo': userinfo,'posts':posts,'allPage':allPage,'curPage':curPage},context_instance=RequestContext(req))
+    return render_to_response('show_user.html', {'userinfo': userinfo,'posts':posts,'allPage':allPage,'curPage':curPage})
 
 
 def beginAdduser(req):

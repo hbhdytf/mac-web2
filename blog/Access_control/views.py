@@ -46,21 +46,24 @@ class SefieldForm(ModelForm):
 
 
 class Sefield_Form(ModelForm):
+    #a = Tuser.objects.all().values('tu_id','username')
     a = Tuser.objects.all()
     uid = []
     uname = []
     AllFieldids = []
     AllFieldNames=[]
+    userinfo = []
     a1 = Tsecfield.objects.all()
     for i in a1:
         AllFieldids.append(i.secfield_id)
         AllFieldNames.append(i.secfield_name)
     AllFieldsinfo = zip(AllFieldids, AllFieldNames)
-    allfieldsinfo = tuple(AllFieldsinfo)
+    allfieldsinfo = tuple(AllFieldsinfo) 
     for i in a:
         uid.append(i.tu_id)
         uname.append(i.username)
     userinfo = tuple(zip(uid, uname))
+    #print Tuser.objects.all().values('tu_id','username') 
     # fields_info = views.FieldForm().allfieldsinfo
     nameofusers = forms.ChoiceField(label='用户名', required=True, choices=userinfo)
     #nameoffields = forms.MultipleChoiceField(label='范畴名', required=True, choices=allfieldsinfo, \

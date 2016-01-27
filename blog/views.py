@@ -13,6 +13,8 @@ from django.utils.translation import ugettext as _
 import os
 import time
 
+ONE_PAGE_OF_DATA = 15
+
 def main(req):
     a = Tseclass.objects.filter(parent_secl_id=None)
     det = {}
@@ -129,7 +131,26 @@ def showMid(req):
 
 
 def showmeta(request, meid, uname):
-    mt = Tmeta.objects.filter(parent_secl_id=meid)
+    req = request
+    try:
+        curPage = int(req.GET.get('curPage','1'))
+        allPage = int(req.GET.get('allPage','1'))
+        pageType = str(req.GET.get('pageType',''))
+    except ValueError:
+        curPage = 1
+        allPage = 1
+        pageType = ''
+    # charge pageup or pagedown
+    if pageType == 'pageDown':
+        curPage += 1
+    elif pageType == 'pageUp':
+        curPage -= 1
+    startPos = (curPage - 1) * ONE_PAGE_OF_DATA
+    endPos = startPos + ONE_PAGE_OF_DATA
+    posts = Tmeta.objects.filter(parent_secl_id=meid)[startPos:endPos]
+
+    #mt = Tmeta.objects.filter(parent_secl_id=meid)
+    mt = posts
     metainfo = {}
     for i in range(mt.count()):
         objectid = mt.values()[i]['object_id']
@@ -141,7 +162,15 @@ def showmeta(request, meid, uname):
         objpath = mt.values()[i]['path']
         name = [objectid, name, paseclname, objseclevel, author, objpath]
         metainfo[objectid] = name
-    return render_to_response('show_meta.html', {'metainfo': metainfo, 'uname': uname, 'mt_id': meid})
+    if curPage == 1 and allPage == 1:
+        allPostCounts = Tmeta.objects.filter(parent_secl_id=meid).count()
+        allPage = allPostCounts / ONE_PAGE_OF_DATA
+        remainPost = allPostCounts % ONE_PAGE_OF_DATA
+        if remainPost > 0:
+            allPage += 1
+
+    #return render_to_response('show_meta.html', {'metainfo': metainfo, 'uname': uname, 'mt_id': meid})
+    return render_to_response('show_meta.html', {'metainfo': metainfo, 'uname': uname, 'mt_id': meid, 'posts':posts,'allPage':allPage,'curPage':curPage})
 
 
 def frame(req):
@@ -234,7 +263,7 @@ def metaadd(req):
             print values
             content = popen("curl -X PUT -T %s -D- -H 'object_name:%s' -H 'parent_secl_id:%s' -H \
             'obj_seclevel:%s' -H 'Content-Type:%s' -H '%s' %s" % values).readlines()
-            return HttpResponse('<h1>%s</h1></ br><p>%s</p>' % (content[0], content[-1]))
+            return HttpResponse('<h1>文件上传结果: %s</h1></ br><p>%s</p>' % (content[0], content[-1]))
     else:
         mf = MetaForm()
     return render_to_response('addmetadb.html', {'mf': mf,'uname':uname})
