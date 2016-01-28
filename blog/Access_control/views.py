@@ -63,6 +63,7 @@ class Sefield_Form(ModelForm):
         uid.append(i.tu_id)
         uname.append(i.username)
     userinfo = tuple(zip(uid, uname))
+    #print "userinfo",userinfo
     #print Tuser.objects.all().values('tu_id','username') 
     # fields_info = views.FieldForm().allfieldsinfo
     nameofusers = forms.ChoiceField(label='用户名', required=True, choices=userinfo)
@@ -117,23 +118,42 @@ def showuserfield(req):
 
 
 def adduserfield(req):
+    print "adduserfield"
     head = u'范畴用户关系'
     if req.method == 'POST':
         af = Sefield_Form(req.POST)
-        if af.is_valid():
-            uid = req.POST.get('nameofusers')
-            cc = req.POST.getlist('nameoffields')
-            secfieldid = ','.join(cc)
-            try:
-                Tusersecfieldrelation.objects.create(tu_id=int(uid), secfield_id=secfieldid)
-            except Exception as e:
-                if e[0]==1062:
-                    return HttpResponse("该用户已存在，如需更新，请点击更新按钮！")
-                return HttpResponse(e)
-            return HttpResponseRedirect('/user_field')
+        print req.POST
+        #if af.is_valid():
+        uid = req.POST.get('uid')
+        cc = req.POST.getlist('nameoffields')
+        secfieldid = ','.join(cc)
+        try:
+            Tusersecfieldrelation.objects.create(tu_id=int(uid), secfield_id=secfieldid)
+        except Exception as e:
+            if e[0]==1062:
+                return HttpResponse("该用户已存在，如需更新，请点击更新按钮！")
+            return HttpResponse(e)
+        return HttpResponseRedirect('/user_field')
     else:
         af = Sefield_Form()
-    #print "af",af
+     # print "af",af
+    a = Tuser.objects.all()
+    uid = []
+    uname = []
+    AllFieldids = []
+    AllFieldNames=[]
+    userinfo = []
+    a1 = Tsecfield.objects.all()
+    for i in a1:
+        AllFieldids.append(i.secfield_id)
+        AllFieldNames.append(i.secfield_name)
+    AllFieldsinfo = zip(AllFieldids, AllFieldNames)
+    allfieldsinfo = tuple(AllFieldsinfo) 
+    for i in a:
+        uid.append(i.tu_id)
+        uname.append(i.username)
+    userinfo = tuple(zip(uid, uname))
+    print "userinfo2",userinfo
     AllFieldids = []
     AllFieldNames=[]
     a = Tsecfield.objects.all()
@@ -142,7 +162,7 @@ def adduserfield(req):
         AllFieldNames.append(i.secfield_name)
     AllFieldsinfo = zip(AllFieldids, AllFieldNames)
     vin = tuple(AllFieldsinfo)
-    return render_to_response('field_classadd.html', {'af': af,'uu2': vin,'head': head})
+    return render_to_response('field_classadd.html', {'af': af,'uu2': vin,'head': head,'uu4':userinfo})
 
 
 def delufrelation(req, id):

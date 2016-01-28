@@ -8,12 +8,19 @@
 <body>
 <h1>{{ head }}</h1>
 <form method="post" enctype="multipart/form-data">
-    {% for field in af %}
+
+<!--    {% for field in af %}
         <div class="form-group col-sm-10">
             {{ field.label }}:{{ field }}
         <div style="color:red;">{{ field.errors }}</div>
         </div>
-    {% endfor %}
+    {% endfor %}-->
+<tr><th><label for="id_csparent">用户名:</label></th><td>
+ <select id="id_field" name="uid">
+{% for k,v in uu4 %}
+<option value="{{ k }}">{{ v }}</option>
+{% endfor %}
+</select></td></tr>
     <div></div>
     <br>
         <div class="form-group col-sm-10">
